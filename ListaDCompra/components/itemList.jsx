@@ -6,12 +6,20 @@ export default function ItemList( { item, markItem, unmarkItem, removeItem }) {
   return (
     <View style={styles.itemList}>
         <Text style={item.bought ? styles.itembought : styles.itemToBuy}>{item?.name}</Text>
+        {!item?.bought ? (
+            <TouchableOpacity style={styles.actionIcon} onPress={() => markItem(item.id)}>
+                <Ionicons name='bag-check-outline' size={24} color = '#fff'/>
+            </TouchableOpacity>
+        ) : (
+            <TouchableOpacity style={styles.actionIcon } onPress={() => unmarkItem(item.id)}>
+                <Ionicons name='bag-check-outline' size={24} color = '#fff'/>
+            </TouchableOpacity>
+        )}
 
-        <TouchableOpacity style={styles.actionIcon}>
-            <Ionicons name='bag-check-outline' size={24} color = '#fff'/>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[styles.actionIcon, {backgroundColor: "darkred"}]}>
+        <TouchableOpacity
+            style={[styles.actionIcon, {backgroundColor: "darkred"}]}
+            onPrewss={() => removeItem(item.id)}
+        >
             <Ionicons name= 'trash-bin-outline' size= {24} color='#fff'/>
         </TouchableOpacity>
     </View>
@@ -36,6 +44,13 @@ itemToBuy:{
     fontSize: 24,
     textDecorationLine: 'none'
 },
+ItemBought: {
+    flex: 1,
+    color: '#fff',
+    fontSize: 24,
+    textDecorationLine: 'line-through'
+},
+
 actionIcon:{
     height: 40,
     width: 40,
