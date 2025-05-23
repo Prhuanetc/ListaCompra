@@ -30,6 +30,7 @@ export default function Home() {
         if (item.id == itemId) {
             return{ ...item, bought: true}
         }
+        return item;
     });
     setItems(newItems);
   }
